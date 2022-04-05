@@ -8,13 +8,6 @@ from PIL import Image
 from pytesseract import *
 import clipboard
 
-
-#pip install PyQt5
-#pip install numpy
-#pip install opencv-python
-#pip install clipboard
-#pip install pytesseract
-
 class MyWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -69,7 +62,7 @@ class MyWidget(QtWidgets.QWidget):
 
 
 if __name__ == '__main__':
-    pytesseract.tesseract_cmd = r'C:\Users\fabia\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
+    pytesseract.tesseract_cmd = r'{Path to tesseract}\tesseract.exe'
     app = QtWidgets.QApplication(sys.argv)
     window = MyWidget()
     window.show()
