@@ -40,8 +40,6 @@ class MyWidget(QtWidgets.QWidget):
     def mouseMoveEvent(self, event):
         change = event.pos().x()-self.begin.x()
         self.end = QtCore.QPoint(self.begin.x()+change, self.begin.y()+change)
-        # print()
-        # self.end = event.pos()
         self.update()
 
     def mouseReleaseEvent(self, event):
@@ -54,17 +52,14 @@ class MyWidget(QtWidgets.QWidget):
 
         # print(x1, y1, x2, y2)
         img = ImageGrab.grab(bbox=(x1, y1, x2, y2))
-        imageProcess(img)
 
-        img.save(self.path + r"\capture.jpg")
-        # img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
+        imageProcess(img, self.path)
 
-        # cv2.imshow('Captured Image', img)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
 
-def imageProcess(img):
-    pass
+def imageProcess(img, path):
+    img.thumbnail((400,400), Image.Resampling.LANCZOS)
+
+    img.save(path + r"\capture.jpg")
 
 def getPath():
     path = r"C:\Users\fabia\CLionProjects\TierList\assets"
