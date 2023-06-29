@@ -33,12 +33,15 @@ class MyWidget(QtWidgets.QWidget):
         qp.drawRect(QtCore.QRect(self.begin, self.end))
 
     def mousePressEvent(self, event):
-        self.begin = event.pos()
+        self.begin =event.pos() 
         self.end = self.begin
         self.update()
 
     def mouseMoveEvent(self, event):
-        self.end = event.pos()
+        change = event.pos().x()-self.begin.x()
+        self.end = QtCore.QPoint(self.begin.x()+change, self.begin.y()+change)
+        # print()
+        # self.end = event.pos()
         self.update()
 
     def mouseReleaseEvent(self, event):
