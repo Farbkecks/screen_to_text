@@ -5,10 +5,9 @@ from PIL import ImageGrab
 import numpy as np
 import cv2
 from PIL import Image
-from pytesseract import *
-import clipboard
 
 class MyWidget(QtWidgets.QWidget):
+
     def __init__(self):
         super().__init__()
         root = tk.Tk()
@@ -19,6 +18,7 @@ class MyWidget(QtWidgets.QWidget):
         self.begin = QtCore.QPoint()
         self.end = QtCore.QPoint()
         self.setWindowOpacity(0.3)
+        self.path = ""
         QtWidgets.QApplication.setOverrideCursor(
             QtGui.QCursor(QtCore.Qt.CrossCursor)
         )
@@ -51,20 +51,34 @@ class MyWidget(QtWidgets.QWidget):
 
         # print(x1, y1, x2, y2)
         img = ImageGrab.grab(bbox=(x1, y1, x2, y2))
-        clipboard.copy(pytesseract.image_to_string(img))
+        imageProcess(img)
 
-        # img.save('capture.png')
+        img.save(self.path + r"\capture.png", 'JPEG')
         # img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
 
         # cv2.imshow('Captured Image', img)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
 
+def imageProcess(img):
+    pass
 
-if __name__ == '__main__':
-    pytesseract.tesseract_cmd = r'{Path to tesseract}\tesseract.exe'
+def getPath():
+    path = r"C:\Users\fabia\CLionProjects\TierList\assets"
+    return path
+    userInput = input("bitte den Path eingeben: ")
+    if(userInput == ""):
+        return path
+    else:
+        return userInput
+
+def app(path):
     app = QtWidgets.QApplication(sys.argv)
     window = MyWidget()
+    window.path = path
     window.show()
     app.aboutToQuit.connect(app.deleteLater)
     sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    app(getPath())
