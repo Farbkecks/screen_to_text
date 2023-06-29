@@ -1,5 +1,3 @@
 PyQt5
 numpy
 opencv-python
-clipboard
-pytesseract
