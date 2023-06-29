@@ -53,7 +53,7 @@ class MyWidget(QtWidgets.QWidget):
         img = ImageGrab.grab(bbox=(x1, y1, x2, y2))
         imageProcess(img)
 
-        img.save(self.path + r"\capture.png", 'JPEG')
+        img.save(self.path + r"\capture.jpg")
         # img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
 
         # cv2.imshow('Captured Image', img)
