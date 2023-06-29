@@ -17,8 +17,8 @@ class MyWidget(QtWidgets.QWidget):
         self.setWindowTitle(' ')
         self.begin = QtCore.QPoint()
         self.end = QtCore.QPoint()
+        self.img = Image.new('RGB', (0, 0))
         self.setWindowOpacity(0.3)
-        self.path = ""
         QtWidgets.QApplication.setOverrideCursor(
             QtGui.QCursor(QtCore.Qt.CrossCursor)
         )
@@ -53,13 +53,14 @@ class MyWidget(QtWidgets.QWidget):
         # print(x1, y1, x2, y2)
         img = ImageGrab.grab(bbox=(x1, y1, x2, y2))
 
-        imageProcess(img, self.path)
-
+        self.img = img
 
 def imageProcess(img, path):
     img.thumbnail((400,400), Image.Resampling.LANCZOS)
+    print("Test")
+    name = input("Bild Name: ")
 
-    img.save(path + r"\capture.jpg")
+    img.save(path + rf"\{name}.jpg")
 
 def getPath():
     path = r"C:\Users\fabia\CLionProjects\TierList\assets"
@@ -70,13 +71,16 @@ def getPath():
     else:
         return userInput
 
-def app(path):
+def app():
     app = QtWidgets.QApplication(sys.argv)
     window = MyWidget()
-    window.path = path
     window.show()
     app.aboutToQuit.connect(app.deleteLater)
-    sys.exit(app.exec_())
+    app.exec_()
+    return window.img 
 
 if __name__ == '__main__':
-    app(getPath())
+
+    path = getPath()
+    img = app()
+    imageProcess(img, path)
